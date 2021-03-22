@@ -44,9 +44,8 @@
 
         function isDateValid() {
             var date = document.getElementById("birth");
-            if (date.length == 10 && date[4] == date[7] && date[4] == date[10] && date[4] == '-') return true;
-            alert("wrong date");
-            return false;
+            if (date.length != 10 || date[4] != '-') return false;
+            return true;
         }
         function AC() {
             if (document.getElementById("username").value.length == 0) {
@@ -57,7 +56,6 @@
             } else if (isMailValid() == false) {
                 return false;
             } else if (isDateValid() == false) {
-                alert("wrong date");
                 return false;
             }
             alert("accepted");
@@ -69,13 +67,13 @@
 <body>
 
     <p>New User Registration!</p>
-    <form method="post">
-        Username:<input type="text" id="username"><br/>
-        Password:<input type="password" id="password" name="password"><br/>
-        E-mail:<input type="email" id="email" name="email"><br/>
-        Gender:<input type="radio" name="sex" value="male">mal
+    <form method="post" action="register">
+        Username:<input type="text" name="username"><br/>
+        Password:<input name="password" type="password"><br/>
+        E-mail:<input name="email" type="email"><br/>
+        Gender:<input name="sex" type="radio" value="male">mal
                <input type="radio" name="sex" value="female">female<br/>
-        Birth:<input type="text" id="birth" name="birth"><br/>
+        Birth:<input type="text" name="birth"><br/>
         <input type="submit" value="Register" onclick="AC()">
     </form>
 

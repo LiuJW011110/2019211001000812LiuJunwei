@@ -8,12 +8,26 @@
         <servlet-name>FirstServlet</servlet-name>
         <servlet-class>com.LiuJunwei.week2.FirstServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LifeCycleServlet</servlet-name>
+        <servlet-class>com.LiuJunwei.week3.demo.LifeCycleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>com.LiuJunwei.week3.demo.RegisterServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>FirstServlet</servlet-name>
         <url-pattern>/hello</url-pattern>
     </servlet-mapping>
-
-
+    <servlet-mapping>
+        <servlet-name>LifeCycleServlet</servlet-name>
+        <url-pattern>/life</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/week2/register</url-pattern>
+    </servlet-mapping>
 
 </web-app>
