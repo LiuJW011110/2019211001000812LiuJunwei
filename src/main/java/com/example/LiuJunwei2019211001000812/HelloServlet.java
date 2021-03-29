@@ -1,6 +1,9 @@
 package com.example.LiuJunwei2019211001000812;
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
@@ -20,6 +23,18 @@ public class HelloServlet extends HttpServlet {
         out.println("<html><body>");
         out.println("<h1>" + message + "</h1>");
         out.println("</body></html>");
+
+        String driver = "com.mysql.jdbc.Driver";
+        String url = "jdbc:mysql://localhost:3306/userdb";
+        String username = "root";
+        String password = "123456";
+        try {
+            Class.forName(driver);
+            Connection con = DriverManager.getConnection(url, username, password);
+            System.out.println("-->"+con);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void destroy() {
