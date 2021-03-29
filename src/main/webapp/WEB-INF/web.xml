@@ -102,7 +102,7 @@
 <!--    </servlet-mapping>-->
 <!--    <servlet-mapping>-->
 <!--        <servlet-name>RegisterServlet</servlet-name>-->
-<!--        <url-pattern>/week2/register</url-pattern>-->
+<!--        <url-pattern>/register</url-pattern>-->
 <!--    </servlet-mapping>-->
 
 
