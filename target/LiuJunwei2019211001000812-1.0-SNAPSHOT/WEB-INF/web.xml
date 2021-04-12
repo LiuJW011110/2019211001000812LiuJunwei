@@ -35,7 +35,7 @@
     </context-param>
 
 
-<!--     ConfigDemoServlet    -->
+    <!--     ConfigDemoServlet    -->
 <!--    <servlet>-->
 <!--        <servlet-name>ConfigDemoServlet</servlet-name>-->
 <!--        <servlet-class>com.LiuJunwei.week4.demo.ConfigDemoServlet</servlet-class>-->

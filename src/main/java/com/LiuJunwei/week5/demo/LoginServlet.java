@@ -13,7 +13,8 @@ public class LoginServlet extends HttpServlet {
     Connection con = null;
     @Override
     public void init() throws ServletException {
-        String driver = "com.mysql.jdbc.Driver";
+        super.init();
+        /*String driver = "com.mysql.jdbc.Driver";
         String password = "123456";
         String url = "jdbc:mysql://localhost:3306/userdb?serverTimezone=UTC";
         String username = "root";
@@ -23,49 +24,44 @@ public class LoginServlet extends HttpServlet {
             System.out.println("init()-->"+con);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        }
+        }*/
+        con = (Connection)getServletContext().getAttribute("con");
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username=request.getParameter("username");
-        String password=request.getParameter("password");
-        PrintWriter writer=response.getWriter();
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String username=req.getParameter("username");
+        String password=req.getParameter("password");
+        Statement createDbStatement = null;
+        PrintWriter writer=resp.getWriter();
+        boolean flag = false;
         try {
-            ResultSet rs;
-            PreparedStatement sql;
-            sql = con.prepareStatement("SELECT * FROM usertable WHERE username=? AND password=?");
-            sql.setString(1, username);
-            sql.setString(2, password);
-            rs = sql.executeQuery();
-            boolean flag = false;
-            while(rs.next()) {
+            createDbStatement = con.createStatement();
+            String dbRequire="select * from usertable where username='"+username+"' and password='"+password+"'";
+            System.out.println(dbRequire);
+            ResultSet resultDb=createDbStatement.executeQuery(dbRequire);
+            if(resultDb.next()) {
                 flag = true;
-                break;
+                req.setAttribute("id",resultDb.getInt("id"));
+                req.setAttribute("username",resultDb.getString("username"));
+                req.setAttribute("password",resultDb.getString("password"));
+                req.setAttribute("email",resultDb.getString("email"));
+                req.setAttribute("gender",resultDb.getString("sex"));
+                req.setAttribute("birthDate",resultDb.getString("birth"));
+                req.getRequestDispatcher("userInfo.jsp").forward(req,resp);
             }
-            if (flag) {
-                writer.println("Login Success!!!");
-                writer.println("Welcome" + username);
-            } else {
-                writer.println("Username or Password Error!!!");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println(e);
         }
+        if (!flag) {
+            req.setAttribute("massage","username or Password Error!");
+            req.getRequestDispatcher("login.jsp").forward(req,resp);
+        }
+
     }
 
     @Override
-    public void destroy() {
-        super.destroy();
-        try {
-            con.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req,resp);
     }
 }

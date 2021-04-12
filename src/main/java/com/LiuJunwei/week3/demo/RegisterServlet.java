@@ -53,20 +53,7 @@ public class RegisterServlet extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e);
         }
-        writer.println("<table border=\"1\">");
-        writer.println("<tr><th>ID</th>" +
-                "<th>UserName</th>" +
-                "<th>Password</th>" +
-                "<th>Email</th>" +
-                "<th>Gender</th>" +
-                "<th>Birthdate</th></tr>");
-        for(int i=0;i<cnt;i++) {
-            for(int j=0;j<6;j++) {
-                writer.println("<td>"+ret[i][j]+"</td>");
-            }
-            writer.println("</tr>");
-        }
-        writer.println("</table>");
+        response.sendRedirect("login.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
