@@ -46,8 +46,8 @@ public class LoginServlet extends HttpServlet {
                 req.setAttribute("username",resultDb.getString("username"));
                 req.setAttribute("password",resultDb.getString("password"));
                 req.setAttribute("email",resultDb.getString("email"));
-                req.setAttribute("gender",resultDb.getString("sex"));
-                req.setAttribute("birthDate",resultDb.getString("birth"));
+                req.setAttribute("sex",resultDb.getString("sex"));
+                req.setAttribute("birth",resultDb.getString("birth"));
                 req.getRequestDispatcher("userInfo.jsp").forward(req,resp);
             }
         } catch (SQLException e) {
