@@ -12,15 +12,32 @@
 <body>
 <h2>Login</h2>
 <%
-    if(!(request.getAttribute("message")==null)) {
+    if((request.getAttribute("message")!=null)) {
         out.print("<h3>"+request.getAttribute("message")+"<h3>");
     }
 %>
+<%
+    Cookie[] allCookies=request.getCookies();
+    String username = "",password="",rememerMeVal="";
+    if(allCookies != null) {
+        for(Cookie c:allCookies) {
+            if(c.getName().equals("cUsername")) {
+                username=c.getValue();
+            }
+            if(c.getName().equals("cPassword")) {
+                password=c.getValue();
+            }if(c.getName().equals("rememberMeVal")) {
+                rememerMeVal=c.getValue();
+            }
+        }
+    }
+%>
 <form action="login" method="post">
-    Username:<input type="text" id="username" name="username"><br>
-    Password:<input type="password" id="password" name="password"><br>
+    Username:<input type="text" id="username" name="username" value="<%=username%>"><br>
+    Password:<input type="password" id="password" name="password" value="<%=password%>"><br>
+    <input type="checkbox" name="rememberMe" value="1" <%= rememerMeVal.equals("1")?"checked":""%>/>Remember Me<br/>
     <input type="submit" value="login">
 </form>
 </body>
-<%@include file="footer.jsp"%>
+<%@ include file="footer.jsp"%>
 </html>

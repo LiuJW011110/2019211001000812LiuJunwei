@@ -3,6 +3,7 @@ package com.LiuJunwei.dao;
 import com.LiuJunwei.model.User;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -10,9 +11,9 @@ public class UserDao implements  IUserDao {
     public boolean saveUser(Connection con, User user) throws SQLException {
         try{
             Statement createDbStatement = con.createStatement();
-            String dbRequire="insert into usertable(username,password,mail,sex,birth) values('"+user.getUsername()+"','"+user.getPassword()+"','"+user.getEmail()+"','"+user.getSex()+"','"+user.getBirth()+"')";
+            String dbRequire="insert into usertable(username,password,email,sex,birth) values('"+user.getUsername()+"','"+user.getPassword()+"','"+user.getEmail()+"','"+user.getSex()+"','"+user.getBirth()+"')";
             createDbStatement.executeUpdate(dbRequire);
-            System.out.println("insert "+user.toString()+" success!");
+            System.out.println("insert "+user.toString()+"success");
             return true;
         }catch(Exception e) {
             System.out.println(e);
@@ -36,7 +37,8 @@ public class UserDao implements  IUserDao {
     public int updateUser(Connection con, User user) throws SQLException {
         try{
             Statement createDbStatement = con.createStatement();
-            String dbRequire="update usertable set username='"+user.getUsername()+"',password='"+user.getPassword()+"',email='"+user.getEmail()+"',sex='"+user.getSex()+"',birth='"+user.getBirth()+"' where id="+user.getId();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String dbRequire="update usertable set username='"+user.getUsername()+"',password='"+user.getPassword()+"',email='"+user.getEmail()+"',sex='"+user.getSex()+"',birth='"+simpleDateFormat.format(user.getBirth())+"' where id="+user.getId();
             createDbStatement.executeUpdate(dbRequire);
             System.out.println("update "+user.getId()+"success");
             return 1;
@@ -117,7 +119,7 @@ public class UserDao implements  IUserDao {
             ResultSet resultDb=st.executeQuery();
             if(resultDb.next()) {
                 user.add(new User(resultDb.getInt("id"),resultDb.getString("username"),
-                        resultDb.getString("password"),resultDb.getString("mail"),
+                        resultDb.getString("password"),resultDb.getString("email"),
                         resultDb.getString("sex"),resultDb.getDate("birth")));
             }
         }catch (Exception e) {
@@ -143,8 +145,8 @@ public class UserDao implements  IUserDao {
         return user;
     }
 
-    public List<User> findByBirthdate(Connection con, Date birth) throws SQLException {
-        String dbRequire="select * from usertable where birth='"+birth+"'";
+    public List<User> findByBirthdate(Connection con, Date birthDate) throws SQLException {
+        String dbRequire="select * from usertable where birth='"+birthDate+"'";
         List<User> user=null;
         try{
             PreparedStatement st=con.prepareStatement(dbRequire);
