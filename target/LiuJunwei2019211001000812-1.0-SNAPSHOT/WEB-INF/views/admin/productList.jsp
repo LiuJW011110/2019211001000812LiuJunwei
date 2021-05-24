@@ -60,7 +60,7 @@
 						<p>${p.price}</p>
 					</td>
 					<%
-						com.LeJiawei.model.Product p=(com.LeJiawei.model.Product)pageContext.findAttribute("p");
+						com.LiuJunwei.model.Product p=(com.LiuJunwei.model.Product)pageContext.findAttribute("p");
 						int pid=p.getProductId();
 						Connection con=(Connection)application.getAttribute("con");
 						String catName= Category.findByCategoryId(con,pid);
