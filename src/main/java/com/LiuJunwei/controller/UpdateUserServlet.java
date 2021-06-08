@@ -12,38 +12,46 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.zip.Inflater;
 
-@WebServlet(name = "UpdateUserServlet",value = "/updateUser")
+@WebServlet(name = "UpdateUserServlet",value="/updateUser")
 public class UpdateUserServlet extends HttpServlet {
-    Connection con = null;
-    @Override
-    public void init() throws ServletException {
-        con = (Connection) getServletContext().getAttribute("con");
-    }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        System.out.println("in");
         String username=request.getParameter("username");
         String password=request.getParameter("password");
-        String email=request.getParameter("email");
-        Date birth= Date.valueOf(request.getParameter("birth"));
+        String mail=request.getParameter("email");
         String sex=request.getParameter("sex");
-
-        User user=new User(id,username,password,email,sex,birth);
-        UserDao userDao=new UserDao();
-
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date birth= null;
         try {
-            userDao.updateUser(con,user);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.out.println(request.getParameter("birth").trim());
+
+            birth = simpleDateFormat.parse(request.getParameter("birth").trim());
+        } catch (ParseException e) {
+            System.out.println(e);
         }
-        HttpSession session=request.getSession();
-        session.setAttribute("user",user);
-        session.setMaxInactiveInterval(30);
-        request.getRequestDispatcher("WEB-INF/views/userInfo.jsp").forward(request,response);
+        String id=request.getParameter("id");
+        User u=new User(Integer.valueOf(id),username,password,mail,sex,birth);
+        UserDao userDao=new UserDao();
+        try {
+            userDao.updateUser((Connection)getServletContext().getAttribute("con"),u);
+            HttpSession session=request.getSession();
+            session.setMaxInactiveInterval(60*60);
+            session.setAttribute("user",u);
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        System.out.println(birth);
+        request.getRequestDispatcher("accountDetails").forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("herhe");
         request.getRequestDispatcher("WEB-INF/views/updateUser.jsp").forward(request,response);
     }
 }
