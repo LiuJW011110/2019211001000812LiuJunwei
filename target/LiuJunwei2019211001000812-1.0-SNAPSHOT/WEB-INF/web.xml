@@ -8,7 +8,11 @@
         <servlet-name>FirstServlet</servlet-name>
         <servlet-class>com.LiuJunwei.week2.FirstServlet</servlet-class>
     </servlet>
-<!--    <servlet>-->
+    <servlet>
+        <servlet-name>ContactUsServlet</servlet-name>
+        <servlet-class>com.LiuJunwei.controller.ContactUsServlet</servlet-class>
+    </servlet>
+    <!--    <servlet>-->
 <!--        <servlet-name>LifeCycleServlet</servlet-name>-->
 <!--        <servlet-class>com.LiuJunwei.week3.demo.LifeCycleServlet</servlet-class>-->
 <!--    </servlet>-->
