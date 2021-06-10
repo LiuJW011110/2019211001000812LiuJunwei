@@ -17,6 +17,15 @@
 <!--        <servlet-class>com.LiuJunwei.week3.demo.RegisterServlet</servlet-class>-->
 <!--    </servlet>-->
 
+    <filter>
+        <filter-name>namefilter</filter-name>
+        <filter-class>com.lab2.YourNameFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>namefilter</filter-name>
+        <url-pattern>/lab2/welcome.jsp</url-pattern>
+    </filter-mapping>
+
     <context-param>
         <param-name>driver</param-name>
         <param-value>com.mysql.jdbc.Driver</param-value>
