@@ -12,6 +12,14 @@
         <servlet-name>ContactUsServlet</servlet-name>
         <servlet-class>com.LiuJunwei.controller.ContactUsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CalServlet</servlet-name>
+        <servlet-class>com.lab3.CalServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HitCountServlet</servlet-name>
+        <servlet-class>com.lab3.HitCountServlet</servlet-class>
+    </servlet>
     <!--    <servlet>-->
 <!--        <servlet-name>LifeCycleServlet</servlet-name>-->
 <!--        <servlet-class>com.LiuJunwei.week3.demo.LifeCycleServlet</servlet-class>-->
